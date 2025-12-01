@@ -1,4 +1,3 @@
-
 const BASE_URL = '/api/bug/'
 
 export const bugService = {
@@ -44,4 +43,3 @@ function save(bug) {
 function getDefaultFilter() {
     return { txt: '', minSeverity: 0 }
 }
-

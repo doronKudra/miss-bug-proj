@@ -28,7 +28,6 @@ function remove(bugId) {
     if (idx === -1) return Promise.reject(`Bug not found (${bugId})`)
     bugs.splice(idx, 1)
     return _saveBugs()
-    
 }
 
 function add({title,description,severity}) {

@@ -12,7 +12,7 @@ export function BugDetails() {
     useEffect(() => {
         bugService.get(bugId)
             .then(bug => setBug(bug))
-            .catch(err => showErrorMsg(`Cannot load bug`, err))
+            .catch(err => setDisplayMsg(`Please Slow Down (${err}) `))
     }, [])
 
     return <div className="bug-details">
