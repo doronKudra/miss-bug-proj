@@ -10,7 +10,19 @@ export const bugService = {
 }
 
 function query(filterBy = {}) {
-    return axios.get(BASE_URL).then(res => res.data)
+    return axios.get(BASE_URL).then(res => res.data).then(bugs => {
+
+        if (filterBy.txt) {
+            const regExp = new RegExp(filterBy.txt, 'i')
+            bugs = bugs.filter(bug => regExp.test(bug.title))
+        }
+
+        if (filterBy.minSeverity) {
+            bugs = bugs.filter(bug => bug.severity >= filterBy.minSeverity)
+        }
+
+        return bugs
+    })
 }
 
 function get(bugId) {

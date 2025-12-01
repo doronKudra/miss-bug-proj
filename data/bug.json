@@ -26,5 +26,26 @@
     "description": "really annoying!",
     "severity": 3,
     "createdAt": 1764599149056
+  },
+  {
+    "_id": "56kXhk",
+    "title": "Buggy",
+    "description": "Annoying!!!",
+    "severity": 5,
+    "createdAt": 1764600400685
+  },
+  {
+    "_id": "DvlOlE",
+    "title": "MR BUG",
+    "description": "mr mr bug",
+    "severity": 4,
+    "createdAt": 1764600414418
+  },
+  {
+    "_id": "LOwZ58",
+    "title": "Miss Bug",
+    "description": "its fine",
+    "severity": 1,
+    "createdAt": 1764600427340
   }
 ]
