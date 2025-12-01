@@ -7,8 +7,8 @@ import { showErrorMsg } from '../services/event-bus.service.js'
 export function BugDetails() {
 
     const [bug, setBug] = useState(null)
+    const [displayMsg, setDisplayMsg] = useState('Loading....')
     const { bugId } = useParams()
-
     useEffect(() => {
         bugService.get(bugId)
             .then(bug => setBug(bug))
@@ -17,7 +17,7 @@ export function BugDetails() {
 
     return <div className="bug-details">
         <h3>Bug Details</h3>
-        {!bug && <p className="loading">Loading....</p>}
+        {!bug && <p className="loading">{displayMsg}</p>}
         {
             bug && 
             <div>
