@@ -5,5 +5,12 @@
     "description": "debugger froze",
     "severity": 2,
     "createdAt": 1764594881307
+  },
+  {
+    "_id": "1pn4yC",
+    "title": "Bug 1764597595737",
+    "description": "really annoying!",
+    "severity": 3,
+    "createdAt": 1764597599272
   }
 ]

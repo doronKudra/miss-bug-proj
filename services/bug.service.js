@@ -6,10 +6,10 @@ export const bugService = {
     getById,
     remove,
     add,
-    update
+    save,
 }
 
-const bugsFile = 'data/bug.json'
+const bugsFile = './data/bug.json'
 const bugs = utilService.readJsonFile(bugsFile)
 
 function query() {
@@ -43,9 +43,9 @@ function add({title,description,severity}) {
     return _saveBugs().then(()=>bugToSave)
 }
 
-function update(bug) {
+function save(bug) {
     const bugToUpdate = bugs.find(currBug => currBug._id === bug._id )
-    if (!bugToUpdate) return Promise.reject(`Bug not found (${bug._id})`)
+    if (!bugToUpdate) return add(bug)
     bugToUpdate.title = bug.title
     bugToUpdate.description = bug.description
     bugToUpdate.severity = bug.severity
