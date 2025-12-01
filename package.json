@@ -1,0 +1,16 @@
+{
+  "name": "miss-bug-proj",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "Doron Kudra",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "missBug": "nodemon --ignore \"./data\" server.js"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "express": "^5.1.0"
+  }
+}
