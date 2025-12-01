@@ -8,7 +8,9 @@ app.use(express.static('public'))
 app.use(cookieParser())
 
 app.get('/api/bug', (req, res) => {
-    bugService.query()
+    const {query} = req
+    const {txt,minSev} = query
+    bugService.query({txt,minSev})
         .then(bugs => {
             res.json(bugs)
         })
@@ -25,8 +27,7 @@ app.get('/api/bug/save', (req, res) => {
         severity: +req.query.sev,
     }
 
-    const func = (bug._id) ? 'update' : 'add'
-    bugService[func](bug)
+    bugService.save(bug)
         .then((savedBug) => {
             res.json(savedBug)
         })

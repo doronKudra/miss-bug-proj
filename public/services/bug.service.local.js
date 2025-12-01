@@ -14,7 +14,7 @@ export const bugService = {
 }
 
 function query(filterBy) {
-    return storageService.query(STORAGE_KEY)
+    return storageService.query(STORAGE_KEY,filterBy)
     .then(bugs => {
 
         if (filterBy.txt) {
