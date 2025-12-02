@@ -1,11 +1,15 @@
-const { useState, useEffect } = React
+import { utilService } from "../services/util.service.js"
+
+const { useState, useEffect, useRef } = React
 
 export function BugFilter({ filterBy, onSetFilterBy }) {
 
-    const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
+    const [filterByToEdit, setFilterByToEdit] = useState(filterBy) // useState also re-renders on change
+
+    const debouncedOnSetFilterBy = useRef(utilService.debounce(onSetFilterBy, 500)) // useRef only survives renders
 
     useEffect(() => {
-        onSetFilterBy(filterByToEdit)
+        debouncedOnSetFilterBy.current(filterByToEdit)
     }, [filterByToEdit])
 
     function handleChange({ target }) {
@@ -19,7 +23,7 @@ export function BugFilter({ filterBy, onSetFilterBy }) {
                 break
 
             case 'checkbox':
-                value = target.checked
+                value = target.checked ? -1 : 1
                 break
 
             default:
@@ -34,7 +38,7 @@ export function BugFilter({ filterBy, onSetFilterBy }) {
         onSetFilterBy(filterByToEdit)
     }
 
-    const { txt, minSeverity } = filterByToEdit
+    const { txt, minSeverity, sortBy,  sortDir} = filterByToEdit
     return (
         <section className="bug-filter">
             <h2>Filter</h2>
@@ -44,6 +48,17 @@ export function BugFilter({ filterBy, onSetFilterBy }) {
 
                 <label htmlFor="minSeverity">Min Severity: </label>
                 <input value={minSeverity} onChange={handleChange} type="number" placeholder="By Min Severity" id="minSeverity" name="minSeverity" />
+
+                <label htmlFor="sortBy">Sort By:</label>
+                <select id="sortBy" name="sortBy" type="sortBy" value={sortBy} onChange={handleChange}>
+                    <option value="title">Name</option>
+                    <option value="severity">Severity</option>
+                    <option value="createdAt">Created At</option>
+                </select>
+
+                <label htmlFor="sortDir">Descending:</label>
+                <input id="sortDir" name="sortDir" type="checkbox" checked={sortDir === -1} onChange={handleChange}/>
+
             </form>
         </section>
     )

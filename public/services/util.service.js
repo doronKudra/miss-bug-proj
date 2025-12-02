@@ -3,7 +3,10 @@ export const utilService = {
     makeLorem,
     getRandomIntInclusive,
     loadFromStorage,
-    saveToStorage
+    saveToStorage,
+    animateCSS,
+    debounce,
+    throttle
 }
 
 function makeId(length = 6) {
@@ -33,13 +36,54 @@ function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min //The maximum is inclusive and the minimum is inclusive 
 }
 
-
-function loadFromStorage(keyDB) {
-    const val = localStorage.getItem(keyDB)
-    return JSON.parse(val)
+function saveToStorage(key, value) {
+    localStorage.setItem(key, JSON.stringify(value))
 }
 
-function saveToStorage(keyDB, val) {
-    const valStr = JSON.stringify(val)
-    localStorage.setItem(keyDB, valStr)
+function loadFromStorage(key) {
+    const data = localStorage.getItem(key)
+    return (data) ? JSON.parse(data) : undefined
 }
+
+function animateCSS(el, animation = 'bounce') {
+    const prefix = 'animate__'
+    return new Promise((resolve) => {
+        const animationName = `${prefix}${animation}`
+        el.classList.add(`${prefix}animated`, animationName)
+
+        el.addEventListener('animationend', handleAnimationEnd, { once: true })
+
+        function handleAnimationEnd(event) {
+            event.stopPropagation()
+            // el.classList.remove(`${prefix}animated`, animationName)
+            resolve('Animation ended')
+        }
+    })
+}
+
+
+
+function debounce(fn, wait) {
+    let timerId
+    return function (...args) {
+        if (timerId) clearTimeout(timerId)
+        timerId = setTimeout(() => {
+            fn(...args)
+        }, wait)
+    }
+}
+
+
+
+function throttle(fn, wait) {
+    let timerId
+    return function (...args) {
+        if (timerId) return
+        timerId = setTimeout(() => {
+            fn(...args)
+            timerId = undefined
+        }, wait)
+    }
+}
+
+

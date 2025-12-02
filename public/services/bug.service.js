@@ -9,8 +9,7 @@ export const bugService = {
 }
 
 function query(filterBy = getDefaultFilter()) {
-    const filterParams = `?txt=${filterBy.txt}&minSev=${filterBy.minSeverity}`
-    return axios.get(BASE_URL + filterParams).then(res => res.data)
+    return axios.get(BASE_URL , {params: filterBy}).then(res => res.data)
 }
 
 function get(bugId) {
@@ -18,15 +17,13 @@ function get(bugId) {
 }
 
 function remove(bugId) {
-    return axios.get(BASE_URL + bugId + '/remove').then(res => res.data)
+    return axios.delete(BASE_URL + bugId).then(res => res.data)
 }
 
 function save(bug) {
     const url = BASE_URL + 'save'
-    let queryParams = `?title=${bug.title}&desc=${bug.description}&sev=${bug.severity}`
-    if (bug._id) queryParams += `&_id=${bug._id}`
-    return axios.get(url + queryParams).then(res => res.data)
-
+    if (bug._id) return axios.put(url, bug).then(res => res.data)
+    return axios.post(url, bug).then(res => res.data)
 }
 
 function getDefaultFilter() {
