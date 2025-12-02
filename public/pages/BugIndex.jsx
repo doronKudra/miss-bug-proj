@@ -32,8 +32,8 @@ export function BugIndex() {
         const bug = {
             title: prompt('Bug title?', 'Bug ' + Date.now()),
             description: prompt('Bug Description?', 'really annoying!'),
-            severity: +prompt('Bug severity?', 3)
-
+            severity: +prompt('Bug severity?', 3),
+            labels: getLabels()
         }
 
         bugService.save(bug)
@@ -42,6 +42,15 @@ export function BugIndex() {
                 showSuccessMsg('Bug added')
             })
             .catch(err => showErrorMsg(`Cannot add bug`, err))
+    }
+
+    function getLabels(){
+        let labels = [prompt('Enter a label: (q To quit)')]
+        while(labels.at(-1) !== 'q'){
+            labels.push(prompt('Enter a label: (q To quit)'))
+        }
+        labels.pop()
+        return labels
     }
 
     function onEditBug(bug) {

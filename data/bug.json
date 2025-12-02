@@ -41,13 +41,6 @@
     ]
   },
   {
-    "_id": "oNkPEX",
-    "title": "Buggy 321",
-    "description": "Not so Annoying!!!",
-    "severity": 1,
-    "createdAt": 1764677277160
-  },
-  {
     "_id": "NWI955",
     "title": "Buggy 321",
     "description": "Not so Annoying!!!",
@@ -56,5 +49,24 @@
     "labels": [
       "need-CR"
     ]
+  },
+  {
+    "_id": "cIs1GU",
+    "title": "oved?",
+    "description": "ulay",
+    "severity": 2,
+    "createdAt": 1764686678132,
+    "labels": [
+      "label",
+      "super label"
+    ]
+  },
+  {
+    "_id": "uNN4oh",
+    "title": "bdika bdika",
+    "description": "ma lo oved?",
+    "severity": 1,
+    "createdAt": 1764686697643,
+    "labels": []
   }
 ]

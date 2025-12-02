@@ -11,11 +11,11 @@ app.use(express.json())
 
 app.get('/api/bug', (req, res) => {
     
-    const { txt = '', minSeverity = 0, pageIdx, sortBy, sortDir = 1} = req.query
+    const { txt = '', minSeverity = 0, pageIdx, sortBy = 'title', sortDir = 1} = req.query
     const filterBy = {
         txt,
-        minSeverity,
-        pageIdx,
+        minSeverity: +minSeverity,
+        pageIdx: pageIdx,
         [sortBy]: +sortDir
     }
     
@@ -29,12 +29,13 @@ app.get('/api/bug', (req, res) => {
 })
 
 app.put('/api/bug', (req, res) => { // update
+    const labels = req.body.labels
     const bug = {
         _id: req.body._id,
         title: req.body.title,
         description: req.body.description,
         severity: +req.body.severity,
-        labels: req.body.labels
+        ...(labels.length && { labels }) // if labels is empty remove it from bug
     }
 
     bugService.save(bug)

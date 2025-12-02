@@ -20,21 +20,21 @@ function query(filterBy) {
             const { txt, minSeverity, pageIdx, title, severity, createdAt } = filterBy
             if (txt) {
                 const regExp = new RegExp(String(txt), 'i')
-                bugs = bugs.filter(bugs => regExp.test(bugs.title))
+                bugs = bugs.filter(bug => regExp.test(bug.title) || bug.labels && bug.labels.some((label) => regExp.test(label)))
             }
             if (minSeverity) {
-                bugs = bugs.filter(bugs => bugs.severity >= +minSeverity)
+                bugs = bugs.filter(bug => bug.severity >= +minSeverity)
             }
-            if (pageIdx) {
-                const startIdx = filterBy.pageIdx * PAGE_SIZE
+            if (pageIdx !== undefined) {
+                const startIdx = pageIdx * PAGE_SIZE
                 bugs = bugs.slice(startIdx, startIdx + PAGE_SIZE)
             }
             if (title) {
-                bugs.sort((a, b) => a.title.localeCompare(b.title) * title)
+                bugs = bugs.toSorted((a, b) => a.title.localeCompare(b.title) * title)
             }
             if (severity || createdAt) {
                 const currSort = severity ? 'severity' : 'createdAt'
-                bugs.sort((a, b) => (a[currSort] - b[currSort]) * (filterBy[currSort]))
+                bugs = bugs.toSorted((a, b) => (a[currSort] - b[currSort]) * (filterBy[currSort]))
             }
             return bugs
         })

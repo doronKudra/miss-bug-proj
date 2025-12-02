@@ -19,7 +19,7 @@ export function BugFilter({ filterBy, onSetFilterBy }) {
         switch (target.type) {
             case 'number':
             case 'range':
-                value = +value || ''
+                value = +value || 0
                 break
 
             case 'checkbox':

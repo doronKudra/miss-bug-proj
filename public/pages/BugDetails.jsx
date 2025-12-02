@@ -9,6 +9,7 @@ export function BugDetails() {
     const [bug, setBug] = useState(null)
     const [displayMsg, setDisplayMsg] = useState('Loading....')
     const { bugId } = useParams()
+
     useEffect(() => {
         bugService.get(bugId)
             .then(bug => setBug(bug))
@@ -19,11 +20,18 @@ export function BugDetails() {
         <h3>Bug Details</h3>
         {!bug && <p className="loading">{displayMsg}</p>}
         {
-            bug && 
+            bug &&
             <div>
                 <h4>{bug.title}</h4>
                 <h5>Severity: <span>{bug.severity}</span></h5>
                 <p>{bug.description}</p>
+                {bug.labels.length && (
+                    <ul className="labels">
+                        {bug.labels.map(label => (
+                            <li key={label}>{'['+label+']'}</li>
+                        ))}
+                    </ul>
+                )}
             </div>
         }
         <hr />

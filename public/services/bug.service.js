@@ -21,11 +21,11 @@ function remove(bugId) {
 }
 
 function save(bug) {
-    const url = BASE_URL + 'save'
+    const url = BASE_URL
     if (bug._id) return axios.put(url, bug).then(res => res.data)
     return axios.post(url, bug).then(res => res.data)
 }
 
 function getDefaultFilter() {
-    return { txt: '', minSeverity: 0 }
+    return { txt: '', minSeverity: 0, sortBy: 'title', sortDir: 1, pageIdx: 0}
 }
