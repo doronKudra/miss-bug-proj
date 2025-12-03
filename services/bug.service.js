@@ -47,29 +47,40 @@ function getById(bugId) {
     return Promise.resolve(bug)
 }
 
-function remove(bugId) {
+function remove(bugId, loggedinUser) {
     const idx = bugs.findIndex(bug => bug._id === bugId)
     if (idx === -1) return Promise.reject(`Bug not found (${bugId})`)
+
+    if (!loggedinUser.isAdmin &&
+        cars[idx].owner._id !== loggedinUser._id) {
+        return Promise.reject(`Not your car`)
+    }
+
     bugs.splice(idx, 1)
     return _saveBugs()
 }
 
-function add({ title, description, severity, labels }) {
+function add({ title, description, severity, labels }, loggedinUser) {
     const bugToSave = {
         _id: utilService.makeId(),
         title,
         description,
         severity,
         createdAt: Date.now(),
-        labels
+        labels,
+        owner: loggedinUser
     }
     bugs.push(bugToSave)
     return _saveBugs().then(() => bugToSave)
 }
 
-function save(bug) {
+function save(bug, loggedinUser) {
     const bugToUpdate = bugs.find(currBug => currBug._id === bug._id)
-    if (!bugToUpdate) return add(bug)
+    if (!bugToUpdate) return add(bug, loggedinUser)
+    if (!loggedinUser.isAdmin &&
+        carToUpdate.owner._id !== loggedinUser._id) {
+        return Promise.reject(`Not your car`)
+    }
     bugToUpdate.title = bug.title
     bugToUpdate.description = bug.description
     bugToUpdate.severity = bug.severity
