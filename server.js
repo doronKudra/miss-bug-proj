@@ -32,7 +32,7 @@ app.get('/api/bug', (req, res) => {
 
 app.put('/api/bug', (req, res) => { // update
     const loggedinUser = authService.validateToken(req.cookies.loginToken)
-	if (!loggedinUser) return res.status(401).send('Cannot add car')
+	if (!loggedinUser) return res.status(401).send('Cannot add bug')
     const labels = req.body.labels
     const bug = {
         _id: req.body._id,
@@ -54,7 +54,7 @@ app.put('/api/bug', (req, res) => { // update
 app.post('/api/bug', (req, res) => { // save
 
     const loggedinUser = authService.validateToken(req.cookies.loginToken)
-	if (!loggedinUser) return res.status(401).send('Cannot add car')
+	if (!loggedinUser) return res.status(401).send('Cannot add bug')
 
     const bug = {
         title: req.body.title,

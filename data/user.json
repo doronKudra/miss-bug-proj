@@ -1,10 +1,16 @@
 [
-    {
-        "_id": "u101",
-        "username": "puki",
-        "fullname": "Puki Ja",
-        "password": "secret1",
-        "score": 100,
-        "isAdmin": true
-    }
+  {
+    "_id": "u101",
+    "username": "puki",
+    "fullname": "Puki Ja",
+    "password": "secret1",
+    "score": 100,
+    "isAdmin": true
+  },
+  {
+    "username": "sadsad",
+    "password": "sadasda",
+    "fullname": "dsadsads",
+    "_id": "02ppS2"
+  }
 ]
